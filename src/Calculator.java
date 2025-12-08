@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Calculator<T extends Number> {
     private List<T> list = new ArrayList<>();
     private final T generic;
+
 
     public Calculator(T generic) {
         this.generic = generic;
@@ -62,5 +64,4 @@ public class Calculator<T extends Number> {
     public void clearList() {
         list.clear();
     }
-
 }
