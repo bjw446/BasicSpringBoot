@@ -3,51 +3,41 @@ import java.util.Scanner;
 
 public class App {
 
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Calculator calculator = new Calculator();
-
+        Calculator<Double> calculator = new Calculator<>(0.1);
 
         System.out.println("계산기 실행!!");
 
-
         while (true) {
 
-            int num1;
-            int num2;
+            Double num1 = calculator.getGeneric();
+            Double num2 = calculator.getGeneric();
             String operator;
 
             try {
                 System.out.println("첫 번째 숫자를 입력하세요 : ");
-                num1 = sc.nextInt();
+                num1 = sc.nextDouble();
             } catch (InputMismatchException e) {
                 System.out.println("숫자만 입력 가능합니다.");
                 sc.nextLine();
                 continue;
             }
-
-            try {
 
                 System.out.println("사칙연산 기호를 입력하세요 : ");
                 operator = sc.next();
-            } catch (IllegalArgumentException e) {
-                System.out.println("잘못된 연산자 입니다.");
-                sc.nextLine();
-                continue;
-            }
-
 
             try {
                 System.out.println("두 번째 숫자를 입력하세요 : ");
-                num2 = sc.nextInt();
+                num2 = sc.nextDouble();
             } catch (InputMismatchException e) {
                 System.out.println("숫자만 입력 가능합니다.");
                 sc.nextLine();
                 continue;
             }
 
-            calculator.calculate(num1, num2, OperatorType.changeOk(operator));
+            Double genericResult = calculator.calculate((Double) num1, (Double) num2, OperatorType.changeOk(operator));
+            System.out.println("\n계산 결과 : " + genericResult);
             boolean menu = true;
             while (menu) {
                 System.out.println("\n====================");
@@ -57,7 +47,7 @@ public class App {
                 System.out.println("3. 첫 번째 계산 결과 지우기");
                 System.out.println("4. 전체 계산 결과 지우기");
                 System.out.println("5. 계산기 종료 하기");
-                                System.out.println("====================");
+                System.out.println("====================");
 
                 int choice;
                 try {
