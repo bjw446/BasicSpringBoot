@@ -1,3 +1,4 @@
+// 연산자를 enum 으로 관리
 public enum OperatorType {
 
     PLUS("+"),
@@ -5,6 +6,7 @@ public enum OperatorType {
     MULTIPLY("*"),
     DIVIDE("/");
 
+    // 선언한 상수에 문자열 연결
     private final String changeType;
 
     OperatorType(String changeType) {
@@ -15,6 +17,7 @@ public enum OperatorType {
         return changeType;
     }
 
+    // 연산기호로 입력시 반복문을 통해 enum 상수랑 매칭
     public static OperatorType changeOk(String changeType) {
         for (OperatorType a : values()) {
             if (a.changeType.equals(changeType)) {

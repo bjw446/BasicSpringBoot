@@ -1,6 +1,9 @@
+import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 
@@ -12,6 +15,7 @@ public class App {
 
         System.out.println("계산기 실행!!");
 
+        // 반복문을 통해 계산기 루프 설정
         while (true) {
 
             Double num1 = calculator.getGeneric();
@@ -26,10 +30,8 @@ public class App {
                 sc.nextLine();
                 continue;
             }
-
                 System.out.println("사칙연산 기호를 입력하세요 : ");
                 operator = sc.next();
-
             try {
                 System.out.println("두 번째 숫자를 입력하세요 : ");
                 num2 = sc.nextDouble();
@@ -51,7 +53,8 @@ public class App {
                 System.out.println("3. 첫 번째 계산 결과 지우기");
                 System.out.println("4. 전체 계산 결과 목록 지우기");
                 System.out.println("5. 계산한 결과 보다 큰 결과 목록 출력");
-                System.out.println("6. 계산기 종료 하기");
+                System.out.println("6. 입력한 값 보다 큰 결과 목록 출력");
+                System.out.println("7. 계산기 종료 하기");
                 System.out.println("====================");
 
                 int choice;
@@ -78,13 +81,25 @@ public class App {
                         System.out.println("전체 계산 결과를 삭제하였습니다. \n" + calculator.getList());
                         break;
                     case 5 :
+                        // 스트림과 람다 활용, 최근 결과 값 보다 큰 결과 값 필터(매개변수에 직접 활용)
                         List<Double> compareSize =
                         calculator.getList().stream()
                         .filter(a -> a > genericResult)
                         .collect(Collectors.toList());
-                        System.out.println("더 큰 결과 목록 : \n" + compareSize);
+                        System.out.println("계산한 결과 보다 더 큰 결과 목록 : \n" + compareSize);
                         break;
                     case 6 :
+                        // 입력한 값 보다 큰 결과 값 필터(람다식을 변수로 활용)
+                        System.out.println("비교할 값을 입력하세요 : ");
+                        Double compare = sc.nextDouble();
+                        Predicate<Double> predicateLambda = (a -> a > compare);
+                        List<Double> compareSize2 =
+                        calculator.getList().stream()
+                        .filter(predicateLambda)
+                        .collect(Collectors.toList());
+                        System.out.println("입력한 값 보다 더 큰 결과 목록 : \n" + compareSize2);
+                        break;
+                    case 7 :
                         System.out.println("계산기를 종료합니다.");
                         sc.close();
                         return;
